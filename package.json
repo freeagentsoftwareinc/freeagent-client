@@ -1,6 +1,6 @@
 {
   "name": "freeagent-client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A small nodejs client library that comunicates with freeagent network graphql REST API",
   "license": "MIT",
   "main": "index.js",
