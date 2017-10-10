@@ -858,7 +858,10 @@ type_id
 lead_source_id
 forecast_category_id
 fiscal_period
-created_id
+stage_changed_at
+created_by {
+  ${AGENT_BODY_MIN}
+}
 modified_id
 `;
 /* DEALS BODIES */
