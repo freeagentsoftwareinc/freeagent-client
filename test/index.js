@@ -35,7 +35,7 @@ describe('#freeagent-client', function () {
     const deal = {
       name: 'Freeagent Library Test',
       logoname: 'Freeagent Library Test',
-      sales_stage_id: '248a2f05-2042-4036-984b-92f74736dddf',
+      sales_stage_id: 'b6a1cd50-1086-4dfb-b1f6-ac4fcaec811c',
     };
     freeagent.addDeal(deal).then((createdDeal) => {
       assert(createdDeal != null, "Deal should exist.");
