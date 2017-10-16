@@ -35,7 +35,7 @@ describe('#freeagent-client', function () {
     const deal = {
       name: 'Freeagent Library Test',
       logoname: 'Freeagent Library Test',
-      sales_stage_id: 'b6a1cd50-1086-4dfb-b1f6-ac4fcaec811c',
+      sales_stage_id: '4192f66d-4132-45e7-9d4f-7df875965a85',
     };
     freeagent.addDeal(deal).then((createdDeal) => {
       assert(createdDeal != null, "Deal should exist.");
@@ -62,8 +62,8 @@ describe('#freeagent-client', function () {
 
   it('Add lead to deal', function (done) {
     const params = {
-      channel_id: '4bfb7f9e-5b5c-47f3-822a-25147ba50853',
-      contact_id: 'f04352ed-42da-42bd-8559-97d51d363a77',
+      channel_id: 'f01d85e6-0ada-4ec3-a6d2-1c566944106e',
+      contact_id: 'd6f41333-f3e2-4f15-bda9-39cfea31d21a',
     };
     freeagent.addLeadToChannel(params).then((response) => {
       assert(response != null, "Lead - Channel relationship should exist.");

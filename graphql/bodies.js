@@ -239,11 +239,7 @@ work_phone,
 personal_email,
 work_email,
 alternate_email_1,
-alternate_email_2,
-alternate_email_3,
 alternate_phone_1,
-alternate_phone_2,
-alternate_phone_3,
 `;
 const LEAD_BODY_SHORT = `
 id
