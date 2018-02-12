@@ -41,6 +41,7 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 
 ## Release History
 
+* 0.1.4 Added search and update operations for leads
 * 0.1.3 Updating contacts body
 * 0.1.2 Updating leads body
 * 0.1.1 Updating deals body
