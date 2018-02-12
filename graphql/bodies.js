@@ -26,9 +26,14 @@ __typename
 id
 first_name
 last_name
+full_name
 portrait_url
 presence
 teamId
+email_address
+company,
+sales_role,
+generated_password
 `;
 
 const ENTITY_STEP_BODY = `
@@ -39,6 +44,24 @@ description
 completed
 icon
 action
+options
+type
+notificationClosed
+`;
+
+const EVENT_MIN_BODY = `
+__typename
+id
+source
+source_event_id
+title
+description
+notes
+start_time
+end_time
+location_name
+recurring_rule
+recurring_object
 `;
 
 const AGENT_OWN_BODY_MIN = `
@@ -46,6 +69,7 @@ __typename
 id
 first_name
 last_name
+full_name
 portrait_url
 email_address
 isAdmin
@@ -108,6 +132,7 @@ const CATALOG_BODY_BASE = `
   type
   catalog_type_id
   custom_field_id
+  order
 `;
 
 const CATALOG_BODY = `
@@ -131,6 +156,11 @@ id
 place_id
 display_name
 formatted_address
+`;
+
+const BUILD_INFO_BODY = `
+buildTag
+buildTime
 `;
 
 const PRESENCE_BODY = `
@@ -227,6 +257,7 @@ id,
 __typename,
 first_name,
 last_name,
+full_name,
 current_position,
 percent_completed,
 buying_power,
@@ -246,6 +277,7 @@ id
 __typename
 first_name
 last_name
+full_name
 current_position
 buying_power
 buying_center
@@ -270,7 +302,10 @@ lead_source
 lead_score
 owner_id
 created_at
+updated_at
 attempts
+last_attempts
+last_activity
 custom_fields {
   ${CUSTOM_FIELD_VALUE}
 }
@@ -303,6 +338,15 @@ cc
 bcc
 `;
 
+const JOB_BODY = `
+__typename
+id
+location
+title
+description
+requirements
+`;
+
 /* RULE SET BODIES */
 const RULE_FIELD_BODY = `
 __typename
@@ -310,6 +354,8 @@ id
 field
 alias
 entity
+type
+catalog_type_id
 `;
 
 const RULE_ACTION_BODY = `
@@ -318,6 +364,7 @@ id
 type
 target
 target_id
+target_meta
 `;
 
 const RULE_PARAMETER_BODY = `
@@ -403,6 +450,9 @@ const ENTITY_BODY_MIN = `
 /* **** COMPOSITE BODIES ****** */
 
 const TASK_BODY = `
+detail
+closed_date
+owner_id
 __typename
 id
 description
@@ -435,6 +485,12 @@ entity {
 }
 source_name
 logo_name
+emailRecipients {
+  to
+  cc
+  bcc
+}
+metadata
 `;
 
 const SYNC_ACCOUNT_BODY = `
@@ -546,6 +602,22 @@ channel_agents {
 }
 `;
 
+const EVENT_ATTENDEE_BODY = `
+__typename
+id
+event_id
+email_address
+name
+is_owner
+status
+contact {
+  ${CONTACT_BODY_SHORT}
+}
+agent {
+  ${AGENT_BODY_MIN}
+}
+`;
+
 const PHONE_CALL_BODY = `
 id
 __typename
@@ -609,11 +681,18 @@ team_id
 status
 num_employees
 numstudents
-g2krankings {
-  ${G2K_RANKINGS_BODY}
-}
+website
+summary
+industry
+industry_catalog_id
+hq_location
+revenue
+last_activity
 custom_fields {
   ${CUSTOM_FIELD_VALUE}
+}
+locations {
+  ${LOCATION_BODY}
 }
 `;
 
@@ -753,6 +832,8 @@ type
 period
 default_price
 max_users
+base_price
+base_period
 `;
 
 /* AGENT BODIES */
@@ -832,11 +913,10 @@ __typename
 name
 `;
 
-const DEAL_BODY = `
+const DEAL_MAIN_BODY = `
 id
 __typename
 name
-status
 closeDate: close_date
 createDate: created_at
 updateDate: updated_at
@@ -851,10 +931,15 @@ lead_source_id
 forecast_category_id
 fiscal_period
 stage_changed_at
+modified_id
+`;
+
+const DEAL_BODY = `
+${DEAL_MAIN_BODY}
+status
 created_by {
   ${AGENT_BODY_MIN}
 }
-modified_id
 `;
 /* DEALS BODIES */
 const DEAL_BODY_MIN = `
@@ -878,6 +963,7 @@ const DEAL_CHANGE_BODY = `
       oldValue
       newValue
       onDate
+      hid
       by {
         id
         first_name
@@ -909,10 +995,31 @@ table_name
 data_type
 display_name
 data_source
+is_active
 field_configuration {
   ${CUSTOM_FIELD_CONFIGURATION_BODY}
 }
 `;
+const ENTITY_COUNT_BODY = `
+id
+__typename
+entity
+entity_id
+unread_count
+`;
+const EVENT_FULL_BODY = `
+${EVENT_MIN_BODY}
+attendees{
+  ${EVENT_ATTENDEE_BODY}
+}
+logos {
+  ${LOGO_BODY_MIN}
+}
+deals {
+  ${DEAL_MAIN_BODY}
+}
+`;
+
 
 module.exports = {
   DEAL_BODY_LIST: DEAL_BODY_LIST,

@@ -7,10 +7,10 @@ var FreeAgentClient = require('../index');
 describe('#freeagent-client', function () {
 
   var freeagent = new FreeAgentClient({
-    clientId: 'your-client-id',
-    clientSecret: 'your-secret-id',
-    oauthURL: 'freeagent-network-oauth-url',
-    graphQLEndpoint: 'freeagent-network-graphql-url',
+    clientId: '',
+    clientSecret: '',
+    oauthURL: '',
+    graphQLEndpoint: '',
   });
 
   it('Get access token', function (done) {
@@ -24,7 +24,7 @@ describe('#freeagent-client', function () {
 
   it('Get sales stages', function (done) {
     freeagent.getSalesStages().then((salesStages) => {
-      assert(salesStages != null, "Lead should exist.");
+      assert(salesStages != null, "Sale stages should exist.");
       return done();
     }).catch(error => {
       if (error) return done(error);
@@ -35,7 +35,7 @@ describe('#freeagent-client', function () {
     const deal = {
       name: 'Freeagent Library Test',
       logoname: 'Freeagent Library Test',
-      sales_stage_id: '4a7c91b3-59fa-4171-9ff4-30b290f9eb28',
+      sales_stage_id: '',
     };
     freeagent.addDeal(deal).then((createdDeal) => {
       assert(createdDeal != null, "Deal should exist.");
@@ -48,12 +48,63 @@ describe('#freeagent-client', function () {
   it('Create lead', function (done) {
     const lead = {
       first_name: 'Freeagent',
-      last_name: 'Client Library',
+      last_name: 'Client Library3',
       current_position: 'Tester',
       logo_name: 'Freeagent Library Test',
     };
     freeagent.addLead(lead).then((createdLead) => {
       assert(createdLead != null, "Lead should exist.");
+      return done();
+    }).catch(error => {
+      if (error) return done(error);
+    });
+  });
+
+  it('Save lead', function (done) {
+    const lead = {
+      "id": "",
+      "first_name": "",
+      "last_name": "",
+      "buying_power": null,
+      "buying_center_id": null,
+      "current_position": "",
+      "logo_id": "",
+      "logo_name": "",
+      "location_id": null,
+      "location_name": null,
+      "work_phone": "",
+      "home_phone": "",
+      "mobile_phone": "",
+      "personal_email": "",
+      "work_email": "",
+      "alternate_email_1": "",
+      "alternate_phone_1": "",
+      "home_address": "",
+      "work_address": "",
+      "linkedIn": "",
+      "facebook": "",
+      "twitter": "",
+      "lead_status_id": "",
+      "lead_source_id": null,
+      "lead_owner_id": "",
+      "lead_score": null,
+      "custom_fields": []
+    };
+    freeagent.saveLead(lead).then((savedLead) => {
+      assert(savedLead != null, "Lead should exist.");
+      return done();
+    }).catch(error => {
+      if (error) return done(error);
+    });
+  });
+
+  it('Search leads', function (done) {
+    const options = {
+      pattern: '',
+      limit: 10,
+    };
+    freeagent.searchLeads(options).then((leads) => {
+      assert(leads != null, "List of leads should exists.");
       return done();
     }).catch(error => {
       if (error) return done(error);

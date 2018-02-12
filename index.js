@@ -10,7 +10,7 @@ var oauth2 = require('simple-oauth2');
 var get = require('lodash/get');
 var { GraphQLClient } = require('graphql-request');
 var { ADD_DEAL } = require('./graphql/deals');
-var { ADD_LEAD } = require('./graphql/leads');
+var { ADD_LEAD, SAVE_LEAD, SEARCH_LEADS } = require('./graphql/leads');
 var { GET_SALES_STAGES } = require('./graphql/teams');
 var { ADD_CHANNEL_CONTACT } = require('./graphql/channels');
 
@@ -85,6 +85,39 @@ FreeAgentClient.prototype.addLead = function (lead) {
       that.graphqlRequest(ADD_LEAD, lead).then((createdLead) => {
         resolve(get(createdLead,'addLead',null));
       }).catch((error) => {
+        console.log('error', error);
+        reject(error);
+      });
+    }).catch((error) => {
+      reject(error);
+    });
+  });
+};
+
+FreeAgentClient.prototype.saveLead = function (lead) {
+  var that = this;
+  return new Promise(function(resolve, reject) {
+    that.getAccessToken().then((token) => {
+      that.graphqlRequest(SAVE_LEAD, lead).then((savedLead) => {
+        resolve(get(savedLead,'updateLead',null));
+      }).catch((error) => {
+        console.log('error', error);
+        reject(error);
+      });
+    }).catch((error) => {
+      reject(error);
+    });
+  });
+};
+
+FreeAgentClient.prototype.searchLeads = function (options) {
+  var that = this;
+  return new Promise(function(resolve, reject) {
+    that.getAccessToken().then((token) => {
+      that.graphqlRequest(SEARCH_LEADS, options).then((leads) => {
+        resolve(get(leads,'searchContacts',null));
+      }).catch((error) => {
+        console.log('error', error);
         reject(error);
       });
     }).catch((error) => {
